@@ -50,7 +50,7 @@ Vercel
 
 📁 Project Structure (Simplified)
 src/
-├── app/
+├── app/                                                                                                   
 │   ├── (root)/
 │   │   ├── (home)/
 │   │   ├── meetings/[id]/
