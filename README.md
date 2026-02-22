@@ -50,14 +50,17 @@ Vercel
 
 📁 Project Structure (Simplified)
 src/
-├── app/                                                                                                   
+├── app/
 │   ├── (root)/
 │   │   ├── (home)/
 │   │   ├── meetings/[id]/
 │   │   ├── schedule/
 │   │   ├── recordings/
 │   │   └── layout.tsx
-│   ├── (admin)/dashboard/
+│   │
+│   ├── (admin)/
+│   │   └── dashboard/
+│   │
 │   └── layout.tsx
 │
 ├── components/
