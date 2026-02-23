@@ -11,6 +11,8 @@ function CodeEditor() {
   const [selectedQuestion, setSelectedQuestion] = useState(CODING_QUESTIONS[0]);
   const [language, setLanguage] = useState<"javascript" | "python" | "java">(LANGUAGES[0].id);
   const [code, setCode] = useState(selectedQuestion.starterCode[language]);
+  const [output, setOutput] = useState("");
+  const [isRunning, setIsRunning] = useState(false);
 
   const handleQuestionChange = (questionId: string) => {
     const question = CODING_QUESTIONS.find((q) => q.id === questionId)!;
@@ -18,11 +20,43 @@ function CodeEditor() {
     setCode(question.starterCode[language]);
   };
 
-  const handleLanguageChange = (newLanguage: "javascript" | "python" | "java") => {
-    setLanguage(newLanguage);
-    setCode(selectedQuestion.starterCode[newLanguage]);
-  };
+ const handleLanguageChange = (newLanguage: "javascript" | "python" | "java") => {
+  setLanguage(newLanguage);
+  setCode(selectedQuestion.starterCode[newLanguage]);
+  setOutput("");
+};
+ const runCode = () => {
+  setOutput("");
+  setIsRunning(true);
 
+  // Only JS execution
+  if (language !== "javascript") {
+    setOutput("⚠ Execution is supported only for JavaScript right now.");
+    setIsRunning(false);
+    return;
+  }
+
+  try {
+    let consoleOutput = "";
+
+    // Capture console.log
+    const originalLog = console.log;
+    console.log = (...args) => {
+      consoleOutput += args.join(" ") + "\n";
+    };
+
+    // Execute JS code
+    new Function(code)();
+
+    console.log = originalLog;
+
+    setOutput(consoleOutput || "✅ Code executed successfully (no output)");
+  } catch (error: any) {
+    setOutput("❌ Error:\n" + error.message);
+  } finally {
+    setIsRunning(false);
+  }
+};
   return (
     <ResizablePanelGroup direction="vertical" className="min-h-[calc-100vh-4rem-1px]">
       {/* QUESTION SECTION */}
@@ -163,6 +197,15 @@ function CodeEditor() {
       {/* CODE EDITOR */}
       <ResizablePanel defaultSize={60} maxSize={100}>
         <div className="h-full relative">
+          <div className="absolute top-3 right-3 z-10">
+            <button
+              onClick={runCode}
+              disabled={isRunning}
+              className="px-4 py-2 rounded-md bg-green-600 text-white text-sm hover:bg-green-700 disabled:opacity-50"
+            >
+              {isRunning ? "Running..." : "Run"}
+            </button>
+          </div>
           <Editor
             height={"100%"}
             defaultLanguage={language}
@@ -172,7 +215,7 @@ function CodeEditor() {
             onChange={(value) => setCode(value || "")}
             options={{
               minimap: { enabled: false },
-              fontSize: 18,
+              fontSize: 20,
               lineNumbers: "on",
               scrollBeyondLastLine: false,
               automaticLayout: true,
@@ -181,6 +224,11 @@ function CodeEditor() {
               wrappingIndent: "indent",
             }}
           />
+          {output && (
+            <div className="absolute bottom-0 left-0 right-0 max-h-58 overflow-auto bg-black text-green-400 text-l p-4 border-t border-muted">
+              <pre>{output}</pre>
+            </div>
+          )}
         </div>
       </ResizablePanel>
     </ResizablePanelGroup>
