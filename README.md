@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔱 Trinetra  
+### Remote Interview Platform
 
-## Getting Started
+**Trinetra** is a modern remote interview platform designed to conduct technical interviews with real-time video calls, scheduling, recordings, and a clean dashboard experience.  
+It focuses on simplicity, speed, and a smooth interviewer–candidate workflow.
 
-First, run the development server:
+This project is built with **Next.js App Router** and integrates real-time communication, authentication, and a backend-as-a-service setup.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## ✨ Features
+
+- 🎥 **Instant Video Calls**  
+  Start or join interview calls using unique meeting links.
+
+- 📅 **Interview Scheduling**  
+  Schedule interviews in advance with a simple and clean UI.
+
+- 📼 **Call Recordings**  
+  View and manage past interview recordings.
+
+- 🔐 **Authentication & User Management**  
+  Secure sign-in and session handling using Clerk.
+
+- 🧠 **Role-based Access**  
+  Different experiences for interviewers and candidates.
+
+- 🌗 **Dark / Light Mode**  
+  Theme toggle for better usability.
+
+- ⚡ **Fast & Modern UI**  
+  Built with Tailwind CSS and optimized Next.js layouts.
+
+---
+
+## 🧱 Tech Stack
+
+**Frontend**
+- Next.js 14 (App Router)
+- React
+- TypeScript
+
+**Styling**
+- Tailwind CSS
+- shadcn/ui
+
+**Authentication**
+- Clerk
+
+**Video & Calls**
+- Stream Video SDK
+
+**Backend / Database**
+- Convex
+
+**Deployment**
+- Vercel
+
+---
+
+## 📁 Project Structure (Simplified)
+
+```text
+src/
+├── app/
+│   ├── (root)/
+│   │   ├── (home)/
+│   │   ├── meetings/[id]/
+│   │   ├── schedule/
+│   │   ├── recordings/
+│   │   └── layout.tsx
+│   │
+│   ├── (admin)/
+│   │   └── dashboard/
+│   │
+│   └── layout.tsx
+│
+├── components/
+│   ├── Navbar.tsx
+│   ├── MeetingRoom.tsx
+│   ├── MeetingSetup.tsx
+│   └── ui/
+│
+├── hooks/
+│   ├── useMeetingActions.ts
+│   ├── useGetCalls.ts
+│   └── useUserRole.ts
+│
+├── middleware.ts
+└── lib/
 ```
+🚀 Getting Started (Local Setup)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1️⃣ Clone the repository
+```
+git clone https://github.com/deepakpandit31/remote-interview-platform.git
+cd remote-interview-platform
+2️⃣ Install dependencies
+npm install
+3️⃣ Set up environment variables
+```
+Create a file named .env.local in the project root and add:
+```
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+NEXT_PUBLIC_STREAM_API_KEY=
+STREAM_SECRET_KEY=
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+CONVEX_DEPLOYMENT=
+NEXT_PUBLIC_CONVEX_URL=
+```
+4️⃣ Run the development server
+```
+npm run dev
 
-## Learn More
+Open 👉 http://localhost:3000
+```
+🌍 Deployment
 
-To learn more about Next.js, take a look at the following resources:
+The project is deployed on Vercel.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Key points:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Uses the main branch for production
 
-## Deploy on Vercel
+Environment variables must be set in Vercel Project Settings
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Middleware runs on the Edge runtime (Clerk configuration required)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🎯 Why Trinetra?
+
+Most interview platforms are either too complex or too limited.
+Trinetra focuses on:
+
+Minimal setup for interviewers
+
+Fast access to calls
+
+Clean separation of concerns in code
+
+Real-world production patterns
+
+This project was built as a hands-on learning experience and a production-ready showcase.
+
+📌 Future Improvements
+
+🚨 Tab Switch Detection
+Detect when a candidate switches browser tabs during an interview and notify the interviewer in real time.
+
+📅 Calendar Integrations
+Sync interviews with Google Calendar or Outlook.
+
+📊 Admin Analytics Dashboard
+Insights into interview duration, interviewer activity, and hiring trends.
+
+🔔 Real-time Interview Alerts
+Notifications for join/leave events, connection drops, or suspicious behavior.
